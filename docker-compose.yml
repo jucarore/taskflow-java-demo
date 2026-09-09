@@ -1,0 +1,13 @@
+services:
+  taskflow-java:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: staging
+      PORT: 8080
+    volumes:
+      - taskflow-java-data:/app/data
+
+volumes:
+  taskflow-java-data:

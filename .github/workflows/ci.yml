@@ -1,0 +1,55 @@
+name: TaskFlow Java CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtener código
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Dar permiso al Maven Wrapper
+        run: chmod +x mvnw
+
+      - name: Compilar y ejecutar pruebas
+        run: ./mvnw --batch-mode clean verify
+
+      - name: Generar SBOM CycloneDX
+        run: ./mvnw --batch-mode cyclonedx:makeBom
+
+      - name: Publicar SBOM como evidencia
+        uses: actions/upload-artifact@v4
+        with:
+          name: taskflow-java-sbom
+          path: |
+            target/bom.json
+            target/bom.xml
+
+      - name: Construir imagen de staging
+        run: docker build -t taskflow-java:${{ github.sha }} .
+
+      - name: Smoke test de salud
+        run: |
+          docker run --detach --name taskflow-java -p 8080:8080 -e SPRING_PROFILES_ACTIVE=staging taskflow-java:${{ github.sha }}
+          for intento in {1..20}; do
+            if curl --fail --silent http://localhost:8080/api/health; then
+              exit 0
+            fi
+            sleep 2
+          done
+          docker logs taskflow-java
+          exit 1

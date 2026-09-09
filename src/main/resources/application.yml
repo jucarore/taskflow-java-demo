@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: taskflow-java
+  profiles:
+    default: dev
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+
+server:
+  port: ${PORT:8080}
+
+taskflow:
+  version: 1.4.0
