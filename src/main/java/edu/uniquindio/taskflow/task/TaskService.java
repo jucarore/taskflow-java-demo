@@ -1,6 +1,7 @@
 package edu.uniquindio.taskflow.task;
 
 import java.util.List;
+import java.time.LocalDate;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,8 +13,8 @@ public class TaskService {
         this.repository = repository;
     }
 
-    public Task create(String title) {
-        return repository.save(new Task(title));
+    public Task create(String title, LocalDate dueDate) {
+        return repository.save(new Task(title, dueDate));
     }
 
     public List<Task> list() {

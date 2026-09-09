@@ -32,7 +32,7 @@ class TaskControllerTest {
         mockMvc.perform(get("/api/health"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("UP"))
-                .andExpect(jsonPath("$.version").value("1.4.0"));
+                .andExpect(jsonPath("$.version").value("1.5.0"));
     }
 
     @Test
@@ -46,5 +46,15 @@ class TaskControllerTest {
         mockMvc.perform(get("/api/tasks"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].title").value("Preparar línea base"));
+    }
+
+    @Test
+    void createsTaskWithOptionalDueDate() throws Exception {
+        mockMvc.perform(post("/api/tasks")
+                        .contentType("application/json")
+                        .content("{\"title\":\"Preparar release\",\"dueDate\":\"2026-09-15\"}"))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.title").value("Preparar release"))
+                .andExpect(jsonPath("$.dueDate").value("2026-09-15"));
     }
 }

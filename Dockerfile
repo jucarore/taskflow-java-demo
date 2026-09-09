@@ -9,7 +9,7 @@ RUN chmod +x mvnw && ./mvnw --batch-mode clean package -DskipTests
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app
-COPY --from=build /workspace/target/taskflow-java-1.4.0.jar app.jar
+COPY --from=build /workspace/target/taskflow-java-1.5.0.jar app.jar
 
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
