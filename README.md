@@ -1,6 +1,6 @@
 # TaskFlow Java
 
-Proyecto didáctico para aplicar Gestión de la Configuración de Software con Java. Esta copia representa **LB-01 / v1.4.0**; todavía no contiene la fecha límite de tareas.
+Proyecto didáctico para aplicar Gestión de la Configuración de Software con Java. La rama principal parte de **LB-01 / v1.4.0** y TASKFLOW-101 prepara **LB-02 / v1.5.0**.
 
 ## Requisitos
 
@@ -25,7 +25,7 @@ Para crear una tarea:
 ```bash
 curl -X POST http://localhost:8080/api/tasks \
   -H 'Content-Type: application/json' \
-  -d '{"title":"Preparar línea base"}'
+  -d '{"title":"Preparar release","dueDate":"2026-09-15"}'
 ```
 
 ## Generar SBOM

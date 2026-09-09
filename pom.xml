@@ -13,7 +13,7 @@
 
     <groupId>edu.uniquindio</groupId>
     <artifactId>taskflow-java</artifactId>
-    <version>1.4.0</version>
+    <version>1.5.0</version>
     <name>taskflow-java</name>
     <description>TaskFlow Java — proyecto didáctico de Gestión de la Configuración</description>
 

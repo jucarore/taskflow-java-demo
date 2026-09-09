@@ -32,7 +32,7 @@ class TaskControllerTest {
         mockMvc.perform(get("/api/health"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("UP"))
-                .andExpect(jsonPath("$.version").value("1.4.0"));
+                .andExpect(jsonPath("$.version").value("1.5.0"));
     }
 
     @Test
