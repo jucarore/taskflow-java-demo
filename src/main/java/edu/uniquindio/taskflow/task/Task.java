@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "tasks")
@@ -18,11 +19,15 @@ public class Task {
     @Column(nullable = false, length = 160)
     private String title;
 
+    @Column(name = "due_date")
+    private LocalDate dueDate;
+
     protected Task() {
     }
 
-    public Task(String title) {
+    public Task(String title, LocalDate dueDate) {
         this.title = title;
+        this.dueDate = dueDate;
     }
 
     public Long getId() {
@@ -31,5 +36,9 @@ public class Task {
 
     public String getTitle() {
         return title;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
     }
 }
